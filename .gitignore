@@ -2,9 +2,16 @@ node_modules/
 dist/
 build/
 .env
+.env.local
 .DS_Store
 *.log
 venv/
+.venv/
 __pycache__/
+*.pyc
 .idea/
 .vscode/
+*.antigravity
+frontend/dist/
+mobile/android/
+mobile/ios/
