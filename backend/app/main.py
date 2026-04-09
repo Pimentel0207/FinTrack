@@ -76,6 +76,19 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
+from .api.v1 import auth as auth_router
+from .api.v1 import cards as cards_router
+from .api.v1 import transactions as transactions_router
+from .api.v1 import investments as investments_router
+from .api.v1 import goals as goals_router
+
+app.include_router(auth_router.router, prefix="/api/v1")
+app.include_router(cards_router.router, prefix="/api/v1")
+app.include_router(transactions_router.router, prefix="/api/v1")
+app.include_router(investments_router.router, prefix="/api/v1")
+app.include_router(goals_router.router, prefix="/api/v1")
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
