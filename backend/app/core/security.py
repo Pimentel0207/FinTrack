@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from uuid import uuid4
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from .config import settings
@@ -23,7 +24,7 @@ def create_refresh_token(user_id: str, remember_me: bool = False) -> tuple[str, 
     days = settings.REFRESH_TOKEN_REMEMBER_ME_DAYS if remember_me else 0
     hours = 0 if remember_me else settings.REFRESH_TOKEN_EXPIRE_HOURS
     expires_at = datetime.now(timezone.utc) + timedelta(days=days, hours=hours)
-    token = jwt.encode({"sub": user_id, "exp": expires_at, "type": "refresh"}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    token = jwt.encode({"sub": user_id, "exp": expires_at, "type": "refresh", "jti": str(uuid4())}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return token, expires_at
 
 
