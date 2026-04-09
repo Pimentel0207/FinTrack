@@ -78,12 +78,13 @@ backend/
 | Arquivo | O que faz |
 |---------|-----------|
 | `core/security.py` | Hashear senha com Passlib (bcrypt, rounds=12) |
-| `core/security.py` | Criar token JWT com PyJWT (HS256, expira em 24h) |
+| `core/security.py` | Criar access_token JWT (30min) e refresh_token (24h/7d) com `python-jose` |
 | `core/security.py` | Validar e decodificar token JWT |
 | `core/dependencies.py` | `get_current_user()` — extrai user_id do token |
 | `core/dependencies.py` | `get_db()` — fornece sessão do banco para cada request |
 | `api/v1/auth.py` | Rate limiting: 5 tentativas por IP em 15 min |
-| `models/revoked_token.py` | Tabela para blacklist de tokens no logout |
+| `models/refresh_token.py` | Tabela para refresh tokens (com expiração e revogação) |
+| `models/revoked_token.py` | Tabela para blacklist de access tokens no logout |
 
 ---
 
@@ -139,12 +140,13 @@ backend/
 ## 📋 Dependências (requirements.txt)
 
 ```text
-fastapi[all]          # Framework web + uvicorn
-sqlmodel              # ORM (SQLAlchemy + Pydantic)
-alembic               # Migrações de banco
-psycopg2-binary       # Driver PostgreSQL
-passlib[bcrypt]       # Hash de senhas
-python-jose[cryptography]  # JWT
-python-dotenv         # Variáveis de ambiente
-slowapi               # Rate limiting
+fastapi[all]                # Framework web + uvicorn
+sqlmodel                    # ORM (SQLAlchemy + Pydantic)
+alembic                     # Migrações de banco
+psycopg2-binary             # Driver PostgreSQL
+passlib[bcrypt]             # Hash de senhas (bcrypt rounds=12)
+python-jose[cryptography]   # JWT — usar esta, não PyJWT (API diferente)
+python-dotenv               # Variáveis de ambiente
+slowapi                     # Rate limiting dev (trocar por fastapi-limiter+redis em prod)
+apscheduler                 # Job de limpeza de tokens expirados
 ```

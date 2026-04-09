@@ -5,7 +5,7 @@
 | Frontend | React + Vite + TypeScript | Rápido, moderno, tipado |
 | Backend | Python 3.12+ + FastAPI | Alta performance, tipagem forte, ecossistema de IA |
 | Gráficos | Recharts | Leve, declarativo, feito para React |
-| Auth | Passlib (bcrypt) + PyJWT | Seguro e escalável para múltiplos usuários |
+| Auth | Passlib (bcrypt) + python-jose[cryptography] | Seguro e escalável para múltiplos usuários |
 | Banco de Dados | **PostgreSQL via SQLModel** | Escolha definitiva para produção e desenvolvimento |
 | Mobile (futuro) | Capacitor (PWA → App nativo) | Reutiliza 100% do código React |
 

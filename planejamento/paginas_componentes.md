@@ -5,7 +5,7 @@
 **Login:**
 - Logo centralizada (`FinTrack Premium`)
 - Campos com efeito Glassmorphism: Usuário + Senha
-- Checkbox "Lembrar-me" (JWT com expiração de 7 dias)
+- Checkbox "Lembrar-me" — emite refresh_token com 7 dias (sem o checkbox: 24h)
 - Botão "Entrar" com estado de loading
 - Erro: shake animation + mensagem "Usuário ou senha incorretos"
 

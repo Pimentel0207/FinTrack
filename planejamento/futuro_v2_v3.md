@@ -40,10 +40,9 @@ Ativado manualmente ou quando Saldo Real for negativo:
 - Streak + progresso visual + badge ao completar
 
 ### 🏗️ Evolução de Arquitetura
-- Migração de SQLite → PostgreSQL (escala)
-- ORM: SQLModel em todas as etapas
-- Cache leve com Redis ou FastAPI-Cache
-- Rate limiting por usuário para proteger a API em produção
+- ORM: SQLModel em todas as etapas (já usando PostgreSQL desde a V1)
+- Cache leve com Redis + `fastapi-limiter` (substitui o `slowapi` in-memory da V1)
+- Rate limiting por usuário (Redis compartilhado entre workers)
 - Preparação para deploy em cloud (Railway, Render ou VPS)
 
 ---

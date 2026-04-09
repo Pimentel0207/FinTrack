@@ -29,27 +29,28 @@
 ---
 
 ## FASE 2 — Banco de Dados (Tabelas & Migrações)
-> **Objetivo:** Criar todas as 8 tabelas no PostgreSQL.
+> **Objetivo:** Criar todas as 10 tabelas no PostgreSQL.
 > **Depende de:** Fase 1 concluída.
 
 | # | Camada | Tarefa | Detalhe |
 |---|--------|--------|---------|
 | 2.1 | ⚙️ | Criar `db/session.py` | Engine + SessionLocal do SQLModel |
 | 2.2 | ⚙️ | Criar `core/config.py` | Carregar variáveis do `.env` |
-| 2.3 | ⚙️ | Criar Model `user.py` | Tabela `user` com todos os campos |
+| 2.3 | ⚙️ | Criar Model `user.py` | Tabela `user` com `email`, `salary` NUMERIC |
 | 2.4 | ⚙️ | Criar Model `card.py` | Tabela `card` (precisa existir antes de `transaction`) |
-| 2.5 | ⚙️ | Criar Model `transaction.py` | Tabela `transaction` com FK para `user` e `card` |
-| 2.6 | ⚙️ | Criar Model `investment.py` | Tabela `investment` |
-| 2.7 | ⚙️ | Criar Model `goal.py` | Tabela `goal` (cofrinho + SOS) |
-| 2.8 | ⚙️ | Criar Model `subscription.py` | Tabela `subscription` |
+| 2.5 | ⚙️ | Criar Model `transaction.py` | Tabela `transaction` com `deleted_at` e `amount` NUMERIC |
+| 2.6 | ⚙️ | Criar Model `investment.py` | Tabela `investment` com `current_value` e NUMERIC |
+| 2.7 | ⚙️ | Criar Model `goal.py` | Tabela `goal` (cofrinho + SOS) com NUMERIC |
+| 2.8 | ⚙️ | Criar Model `subscription.py` | Tabela `subscription` com CHECK billing_day 1–28 |
 | 2.9 | ⚙️ | Criar Model `envelope.py` | Tabela `envelope` com UNIQUE(user_id, category) |
-| 2.10 | ⚙️ | Criar Model `revoked_token.py` | Tabela `revoked_token` (segurança) |
-| 2.11 | ⚙️ | Configurar Alembic | `alembic init alembic` + ajustar `env.py` |
-| 2.12 | ⚙️ | Gerar migrações | `alembic revision --autogenerate` |
-| 2.13 | 🗄️ | Executar migrações | `alembic upgrade head` |
-| 2.14 | 🗄️ | Verificar no DBeaver | Conferir se as 8 tabelas existem com colunas corretas |
+| 2.10 | ⚙️ | Criar Model `refresh_token.py` | Tabela `refresh_token` (renovação de sessão) |
+| 2.11 | ⚙️ | Criar Model `revoked_token.py` | Tabela `revoked_token` (blacklist de access tokens) |
+| 2.12 | ⚙️ | Configurar Alembic | `alembic init alembic` + ajustar `env.py` |
+| 2.13 | ⚙️ | Gerar migrações | `alembic revision --autogenerate` |
+| 2.14 | 🗄️ | Executar migrações | `alembic upgrade head` |
+| 2.15 | 🗄️ | Verificar no DBeaver | Confirmar 10 tabelas com tipos NUMERIC e TIMESTAMPTZ |
 
-**✅ Fase 2 concluída quando:** DBeaver mostra as 8 tabelas com relacionamentos FK corretos.
+**✅ Fase 2 concluída quando:** DBeaver mostra as 10 tabelas com relacionamentos FK, tipos NUMERIC e TIMESTAMPTZ corretos.
 
 ---
 

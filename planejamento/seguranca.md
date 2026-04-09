@@ -74,12 +74,21 @@ app.add_middleware(
 - JWT secret mínimo 256 bits: `openssl rand -base64 32`.
 - HTTPS obrigatório em produção.
 - PostgreSQL sempre com `sslmode=require` na URL.
+- Biblioteca JWT: **`python-jose[cryptography]`** (não confundir com `PyJWT` — são APIs diferentes).
 
 ```python
+from passlib.context import CryptContext
+from jose import jwt
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 hashed_password = pwd_context.hash(password)
 token = jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm="HS256")
 ```
+
+**Duração dos tokens:**
+- `access_token`: **30 minutos** (curto para minimizar janela de ataque)
+- `refresh_token` sem "Lembrar-me": **24 horas**
+- `refresh_token` com "Lembrar-me": **7 dias** (persistido na tabela `refresh_token`)
 
 ---
 
@@ -90,8 +99,10 @@ token = jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm="
 - **Pydantic:** validação de schema automática em todos os endpoints.
 
 ```python
+from decimal import Decimal
+
 class TransactionCreate(BaseModel):
-    amount: float = Field(gt=0, le=1000000)
+    amount: Decimal = Field(gt=Decimal("0"), le=Decimal("1000000"), decimal_places=2)
     description: str = Field(min_length=1, max_length=255)
     category: str
     method: str
@@ -106,11 +117,21 @@ class TransactionCreate(BaseModel):
 - Mensagem de erro genérica: sempre "Usuário ou senha incorretos".
 
 ```python
-# FastAPI-limiter (Redis) ou slowapi (In-memory)
+# DESENVOLVIMENTO: slowapi (in-memory) — simples, sem dependências extras
+# PRODUÇÃO: FastAPI-limiter com Redis — obrigatório com múltiplos workers
 @app.post("/api/v1/auth/login")
 @limiter.limit("5/15minutes")
 async def login(request: Request):
     ...
+```
+
+> **Atenção:** `slowapi` usa memória do processo. Com múltiplos workers Uvicorn/Gunicorn, cada processo tem contador independente — um atacante pode fazer 5 tentativas por worker. **Em produção, usar `fastapi-limiter` com Redis para contador compartilhado.**
+
+```text
+# requirements.txt
+slowapi          # desenvolvimento (in-memory)
+fastapi-limiter  # produção (Redis) — adicionar antes do deploy
+redis            # cliente Redis
 ```
 
 ---
@@ -140,7 +161,9 @@ CORS_ORIGIN=http://localhost:5173
 # Autenticação
 SECRET_KEY=gerar_com_openssl_rand_base64_32
 ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=1440
+ACCESS_TOKEN_EXPIRE_MINUTES=30          # access token: 30 min (segurança)
+REFRESH_TOKEN_EXPIRE_HOURS=24           # refresh token padrão: 24h
+REFRESH_TOKEN_REMEMBER_ME_DAYS=7        # refresh token com "lembrar-me": 7 dias
 
 # Banco de dados
 DATABASE_URL="postgresql://user:password@localhost:5432/fintrack"
@@ -154,6 +177,8 @@ sqlmodel
 alembic
 psycopg2-binary
 passlib[bcrypt]
-python-jose[cryptography]
+python-jose[cryptography]   # JWT — não usar PyJWT (API diferente)
 python-dotenv
+apscheduler                 # job de limpeza de tokens expirados
+slowapi                     # rate limiting dev (trocar por fastapi-limiter+redis em prod)
 ```

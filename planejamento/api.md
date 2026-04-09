@@ -56,7 +56,7 @@ Todas as rotas marcadas com 🔒 requerem header `Authorization: Bearer <token>`
 | POST | `/transactions` | Criar nova transação |
 | PUT | `/transactions/:id` | Atualizar transação completa (substitui todos os campos) |
 | PATCH | `/transactions/:id` | Atualizar parcial (ex: só a categoria ou descrição) |
-| DELETE | `/transactions/:id` | Remover transação |
+| DELETE | `/transactions/:id` | Soft delete — preenche `deleted_at`, não remove fisicamente |
 
 ---
 

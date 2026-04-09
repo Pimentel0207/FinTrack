@@ -59,15 +59,16 @@
 
 ## 📈 Roadmap de Desenvolvimento
 
-O projeto está sendo construído em **7 fases estratégicas**:
+O projeto está sendo construído em **8 fases estratégicas**:
 
-1.  **Fase 1: Alicerce** — Setup de ambiente e infraestrutura. 🟢
-2.  **Fase 2: Banco de Dados** — Modelagem e persistência. 🟢
-3.  **Fase 3: Autenticação** — Sistema de login e segurança. 🔄
+1.  **Fase 1: Alicerce** — Setup de ambiente e infraestrutura. ⏳
+2.  **Fase 2: Banco de Dados** — Modelagem e persistência. ⏳
+3.  **Fase 3: Autenticação** — Sistema de login e segurança. ⏳
 4.  **Fase 4: Core Financeiro** — Transações e Cartões. ⏳
 5.  **Fase 5: Patrimônio** — Investimentos e Metas. ⏳
 6.  **Fase 6: Configurações** — Perfil e Envelopes. ⏳
 7.  **Fase 7: Dashboard & Polish** — Visual Premium final e animações. ⏳
+8.  **Fase 8: Testes, QA & Deploy** — Qualidade e publicação. ⏳
 
 ---
 
