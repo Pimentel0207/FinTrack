@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;600&display=swap');
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — Dark Mode (padrão)
+═══════════════════════════════════════ */
+:root {
+  --bg-deep:      #0d1117;
+  --bg-surface:   #161b26;
+  --bg-card:      #1e2535;
+  --bg-elevated:  #252d3d;
+
+  --accent:       #2563eb;
+  --accent-light: #3b82f6;
+  --accent-dark:  #1d4ed8;
+  --accent-glow:  rgba(59, 130, 246, 0.2);
+
+  --success:  #22c55e;
+  --danger:   #f87171;
+  --warning:  #fb923c;
+  --info:     #60a5fa;
+
+  --glass-bg:     rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --text-primary:   #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted:     #64748b;
+
+  --radius-card:   24px;
+  --radius-btn:    12px;
+  --radius-input:  8px;
+
+  --font-headline: 'Outfit', sans-serif;
+  --font-body:     'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════
+   LIGHT MODE
+═══════════════════════════════════════ */
+[data-theme="light"] {
+  --bg-deep:      #f8fafc;
+  --bg-surface:   #f1f5f9;
+  --bg-card:      #ffffff;
+  --bg-elevated:  #ffffff;
+
+  --glass-bg:     rgba(0, 0, 0, 0.02);
+  --glass-border: #e2e8f0;
+
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  --success: #16a34a;
+  --danger:  #dc2626;
+  --warning: #c2410c;
+  --info:    #1d4ed8;
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-headline);
+  letter-spacing: -0.02em;
+}
+
+/* ═══════════════════════════════════════
+   GLASSMORPHISM
+═══════════════════════════════════════ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+}
+
+/* ═══════════════════════════════════════
+   ANIMAÇÕES
+═══════════════════════════════════════ */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.shake { animation: shake 0.35s ease-in-out; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.25s ease-out; }
