@@ -53,3 +53,22 @@ class TokenResponse(BaseModel):
 
 class RefreshRequest(BaseModel):
     refresh_token: str
+
+
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    salary: Optional[Decimal] = None
+    currency: Optional[str] = None
+    avatar_url: Optional[str] = None
+
+
+class PasswordChangeRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+    @field_validator("new_password")
+    @classmethod
+    def password_strength(cls, v: str) -> str:
+        if len(v) < 8:
+            raise ValueError("Nova senha deve ter ao menos 8 caracteres.")
+        return v
