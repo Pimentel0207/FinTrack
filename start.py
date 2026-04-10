@@ -2,6 +2,7 @@ import subprocess
 import sys
 import signal
 import os
+import platform
 
 ROOT = os.path.dirname(__file__)
 BACKEND = os.path.join(ROOT, "backend")
@@ -14,8 +15,16 @@ def main():
     try:
         print("🚀 Iniciando FinTrack Premium...")
 
+        system = platform.system()
+        if system == "Windows":
+            venv_python = os.path.join(BACKEND, "venv", "Scripts", "python.exe")
+        else:
+            venv_python = os.path.join(BACKEND, "venv", "bin", "python")
+        
+        python_exe = venv_python if os.path.exists(venv_python) else sys.executable
+
         backend = subprocess.Popen(
-            [sys.executable, "-m", "uvicorn", "app.main:app", "--reload", "--port", "8000"],
+            [python_exe, "-m", "uvicorn", "app.main:app", "--reload", "--port", "8000"],
             cwd=BACKEND,
         )
         procs.append(backend)
