@@ -8,6 +8,8 @@ import { Dashboard } from './pages/Dashboard'
 import { Transactions } from './pages/Transactions'
 import { Cards } from './pages/Cards'
 import { Patrimony } from './pages/Patrimony'
+import { Settings } from './pages/Settings'
+import { Goals } from './pages/Goals'
 import './styles/index.css'
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
                     <Route path="/transactions" element={<Transactions />} />
                     <Route path="/patrimony" element={<Patrimony />} />
                     <Route path="/cards" element={<Cards />} />
+                    <Route path="/goals" element={<Goals />} />
+                    <Route path="/settings" element={<Settings />} />
                     <Route path="*" element={<Navigate to="/dashboard" replace />} />
                   </Routes>
                 </Layout>

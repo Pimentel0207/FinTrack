@@ -46,6 +46,10 @@ export const goalService = {
     return res.data
   },
 
+  async delete(id: string): Promise<void> {
+    await api.delete(`/goals/${id}`)
+  },
+
   async remove(id: string): Promise<void> {
     await api.delete(`/goals/${id}`)
   },

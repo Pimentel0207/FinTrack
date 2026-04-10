@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: 'primary' | 'ghost'
+  variant?: 'primary' | 'ghost' | 'danger'
   loading?: boolean
   fullWidth?: boolean
 }
@@ -34,6 +34,10 @@ export function Button({ children, variant = 'primary', loading = false, fullWid
       background: 'transparent',
       color: 'var(--text-secondary)',
       border: '1px solid var(--glass-border)',
+    },
+    danger: {
+      background: 'var(--danger)',
+      color: '#fff',
     },
   }
 

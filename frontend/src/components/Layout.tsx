@@ -7,6 +7,8 @@ const NAV = [
   { to: '/transactions', label: 'Transações', icon: '↕' },
   { to: '/patrimony', label: 'Patrimônio', icon: '◆' },
   { to: '/cards', label: 'Cartões', icon: '▣' },
+  { to: '/goals', label: 'Metas', icon: '🎯' },
+  { to: '/settings', label: 'Configurações', icon: '⚙' },
 ]
 
 export function Layout({ children }: { children: ReactNode }) {
